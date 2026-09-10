@@ -2,6 +2,59 @@
 //
 
 #include <iostream>
+using namespace std;
+
+class Torre {
+  private:
+    int fila;
+    int columna;
+	bool isBlack;
+
+    bool validarMovimiento(int newfila, int newcolum) {
+        if (newfila == fila && newcolum!=columna) {
+            return true;
+        }
+        else if (newcolum == columna && newfila != fila) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+  public:
+      Torre(int f, int c, bool black) {
+          fila = f;
+          columna = c;
+          isBlack = black;
+      }
+      void movimiento(int newfila, int newcolum) {
+          if (newfila >= 1 && newfila <= 8 && newcolum>=1 && newcolum<=8) {
+              if (validarMovimiento(newfila, newcolum)) {
+                  newfila = fila;
+                  newcolum = columna;
+                  cout << "Movimiento exitoso";
+              }
+              else {
+                  cout << "Movimiento invalido para una torre";
+              }
+          }
+          else {
+              cout << "Coordenadas invalidas" << endl;
+          }
+      }
+      string dibuja() {
+          if (isBlack) {
+              return "[##]";
+          }
+          else {
+              return "[TT]";
+          }
+      }
+
+      void imprimir() {
+          string color = isBlack ? "Black" : "White";
+          cout <<dibuja() << " " << color << " en la fila: " << fila << ", Col: " << columna << endl;
+      }
+};
 
 int main()
 {
