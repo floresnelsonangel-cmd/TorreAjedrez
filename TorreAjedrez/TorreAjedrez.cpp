@@ -12,9 +12,11 @@ class Torre {
 
     bool validarMovimiento(int newfila, int newcolum) {
         if (newfila == fila && newcolum!=columna) {
+            return (newfila == fila) || (newcolum == columna);
             return true;
         }
         else if (newcolum == columna && newfila != fila) {
+            return (newfila == fila) || (newcolum == columna);
             return true;
         }else {
             return false;
@@ -29,8 +31,8 @@ class Torre {
       void movimiento(int newfila, int newcolum) {
           if (newfila >= 1 && newfila <= 8 && newcolum>=1 && newcolum<=8) {
               if (validarMovimiento(newfila, newcolum)) {
-                  newfila = fila;
-                  newcolum = columna;
+                  fila = newfila;
+                  columna = newcolum;
                   cout << "Movimiento exitoso";
               }
               else {
@@ -51,14 +53,42 @@ class Torre {
       }
 
       void imprimir() {
-          string color = isBlack ? "Black" : "White";
-          cout <<dibuja() << " " << color << " en la fila: " << fila << ", Col: " << columna << endl;
+          string color = isBlack ? "Negro" : "Blanco";
+          cout <<dibuja() << " " << color << " en la fila: " << fila << ", Columna: " << columna << endl;
       }
 };
 
 int main()
 {
-    
+    Torre torreBlanca(1, 1, false);
+    Torre torreNegra(8, 8, true);
+
+    cout << "    POSICION DE LAS TORRES" << endl;
+    torreBlanca.imprimir();
+    torreNegra.imprimir();
+    cout << "-----------------------------------" << endl;
+
+    int nuevaFila, nuevaColumna;
+
+    cout << "\n--- Moviendo de la Torre Blanca ---" << endl;
+    cout << "Ingrese nueva fila (1-8): ";
+    cin >> nuevaFila;
+    cout << "Ingrese nueva columna (1-8): ";
+    cin >> nuevaColumna;
+
+    torreBlanca.movimiento(nuevaFila, nuevaColumna);
+    torreBlanca.imprimir();
+
+    cout << "\n--- Moviendo de la Torre Negra ---" << endl;
+    cout << "Ingrese nueva fila (1-8): ";
+    cin >> nuevaFila;
+    cout << "Ingrese nueva columna (1-8): ";
+    cin >> nuevaColumna;
+
+    torreNegra.movimiento(nuevaFila, nuevaColumna);
+    torreNegra.imprimir(); 
+
+    return 0;
 }
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
